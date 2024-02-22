@@ -1,0 +1,23 @@
+  #!/bin/bash -xe
+  apt update
+  apt upgrade -y
+  apt install ca-certificates curl -y
+  install -m 0755 -d /etc/apt/keyrings
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+  echo   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+  apt update
+  apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+  curl -L "https://github.com/docker/compose/releases/download/v2.20.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  chmod +x /usr/local/bin/docker-compose
+  systemctl enable docker
+  systemctl start docker
+  usermod -aG docker ubuntu
+  sudo su - ubuntu
+  newgrp docker
+  mkdir /home/ubuntu/data
+  chown ubuntu:ubuntu /home/ubuntu/data
+  mkdir /home/ubuntu/public
+  chown ubuntu:ubuntu /home/ubuntu/public
+  mkdir -p /home/ubuntu/secret/cdn
+  mkdir /home/ubuntu/secret/api
+  chown -R ubuntu:ubuntu /home/ubuntu/secret
