@@ -44,6 +44,11 @@ make
 sudo make install
 EOF
 chmod +x /home/ubuntu/steps_install_siege
+# Install aws-iam-authenticator
+wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.14/aws-iam-authenticator_0.6.14_linux_amd64
+mv aws-iam-authenticator_0.6.14_linux_amd64 aws-iam-authenticator
+chmod +x aws-iam-authenticator
+mv aws-iam-authenticator /usr/local/bin/
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 apt install unzip
