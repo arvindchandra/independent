@@ -34,9 +34,25 @@ apt-get install jq -y
 apt install autoconf -y
 apt install automake -y
 apt install libtool -y
+cat > /home/ubuntu/steps_install_siege << EOF
 git clone git@github.com:JoeDog/siege.git
 cd siege
 utils/bootstrap
 ./configure
 make
-make install
+sudo make install
+EOF
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
+# Install terraform
+apt-get install -y gnupg software-properties-common
+wget -O- https://apt.releases.hashicorp.com/gpg | gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
+apt update
+apt-get install terraform -y
+
