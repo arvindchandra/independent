@@ -29,10 +29,14 @@ curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scrip
 chmod 700 get_helm.sh
 ./get_helm.sh
 #Install jq
-sudo apt-get install jq
+apt-get install jq -y
 #Install things for siege
 apt install autoconf -y
 apt install automake -y
 apt install libtool -y
 git clone git@github.com:JoeDog/siege.git
-
+cd siege
+utils/bootstrap
+./configure
+make
+make install
