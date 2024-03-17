@@ -42,6 +42,7 @@ utils/bootstrap
 make
 sudo make install
 EOF
+chmod +x /home/ubuntu/steps_install_siege
 # Install AWS CLI
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 apt install unzip
@@ -56,4 +57,5 @@ https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
 tee /etc/apt/sources.list.d/hashicorp.list
 apt update
 apt-get install terraform -y
-
+#Reboot
+reboot
