@@ -66,6 +66,8 @@ apt-get install terraform -y
 #First file
 cat > /home/ubuntu/first_step << END
 git clone git@github.com:aws-samples/istio-on-eks.git
+aws configure
+ensure that region is us-east-1
 END
 #Reboot
 reboot
