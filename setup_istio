@@ -70,6 +70,12 @@ aws configure
 ensure that region is us-east-1
 Run the port-forwarder with below options, else I can not access the service using public IP address
 kubectl port-forward svc/kiali 20001:20001 -n istio-system --address 0.0.0.0
+https://kubernetes.io/docs/reference/kubectl/quick-reference/
+Follow https://istio.io/latest/docs/examples/bookinfo/ and try to get access to application from outside
+Run below commands after every step
+kubectl get pods -A
+kubectl get svc -A
+kubectl get deployments -A
 END
 #Reboot
 reboot
