@@ -66,6 +66,7 @@ apt-get install terraform -y
 #First file
 cat > /home/ubuntu/first_step << END
 git clone git@github.com:aws-samples/istio-on-eks.git
+git clone git@github.com:arvindchandra/deploy_eks_aws.git
 aws configure
 ensure that region is us-east-1
 Run the port-forwarder with below options, else I can not access the service using public IP address
