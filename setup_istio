@@ -84,5 +84,12 @@ kubectl get pods -A
 kubectl get svc -A
 kubectl get deployments -A
 END
+cat > /home/ubuntu/setup_kubernetes << END
+source <(kubectl completion bash)
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+alias k=kubectl
+complete -o default -F __start_kubectl k
+END
+chmod +x /home/ubuntu/setup_kubernetes
 #Reboot
 reboot
