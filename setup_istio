@@ -84,6 +84,8 @@ Run below commands after every step
 kubectl get pods -A
 kubectl get svc -A
 kubectl get deployments -A
+git config --global user.email "arvmld@yahoo.com"
+git config --global user.name "Arvind Chandra"
 END
 cat > /home/ubuntu/setup_kubernetes << END
 source <(kubectl completion bash)
