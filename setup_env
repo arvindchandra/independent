@@ -20,4 +20,5 @@ mkdir /home/ubuntu/public
 chown ubuntu:ubuntu /home/ubuntu/public
 mkdir -p /home/ubuntu/secret/cdn
 mkdir /home/ubuntu/secret/api
+mkdir /home/ubuntu/templates
 chown -R ubuntu:ubuntu /home/ubuntu/secret
