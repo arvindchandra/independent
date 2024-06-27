@@ -28,22 +28,6 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
 chmod 700 get_helm.sh
 ./get_helm.sh
-#Install jq
-apt-get install jq -y
-#Install things for siege
-apt install autoconf -y
-apt install make -y
-apt install automake -y
-apt install libtool -y
-cat > /home/ubuntu/steps_install_siege << EOF
-git clone git@github.com:JoeDog/siege.git
-cd siege
-utils/bootstrap
-./configure
-make
-sudo make install
-EOF
-chmod +x /home/ubuntu/steps_install_siege
 # Install aws-iam-authenticator
 wget https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.6.14/aws-iam-authenticator_0.6.14_linux_amd64
 mv aws-iam-authenticator_0.6.14_linux_amd64 aws-iam-authenticator
@@ -68,59 +52,5 @@ PLATFORM=$(uname -s)_$ARCH
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 chmod +x /tmp/eksctl
-mv /tmp/eksctl /usr/local/bin
-#First file
-cat > /home/ubuntu/first_step << END
-git clone git@github.com:aws-samples/istio-on-eks.git
-git clone git@github.com:arvindchandra/deploy_eks_aws.git
-aws configure
-eksctl create cluster --name eksworkshop-eksctl --region us-west-2
-ensure that region is us-east-1
-Run the port-forwarder with below options, else I can not access the service using public IP address
-kubectl port-forward svc/kiali 20001:20001 -n istio-system --address 0.0.0.0
-https://kubernetes.io/docs/reference/kubectl/quick-reference/
-Follow https://istio.io/latest/docs/examples/bookinfo/ and try to get access to application from outside
-Run below commands after every step
-kubectl get pods -A
-kubectl get svc -A
-kubectl get deployments -A
-git config --global user.email "arvmld@yahoo.com"
-git config --global user.name "Arvind Chandra"
-git clone git@github.com:arvindchandra/aws-eks-kubernetes-masterclass.git
-END
-cat > /home/ubuntu/setup_kubernetes << END
-source <(kubectl completion bash)
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-alias k=kubectl
-complete -o default -F __start_kubectl k
-END
-chmod +x /home/ubuntu/setup_kubernetes
-cat > /home/ubuntu/ekstl_setup_kubernetes << END
-eksctl create cluster --name=eksdemo1 \
-                      --region=us-east-1 \
-                      --zones=us-east-1a,us-east-1b \
-                      --without-nodegroup
-eksctl utils associate-iam-oidc-provider \
-    --region us-east-1 \
-    --cluster eksdemo1 \
-    --approve
-eksctl create nodegroup --cluster=eksdemo1 \
-                       --region=us-east-1 \
-                       --name=eksdemo1-ng-public1 \
-                       --node-type=t3.medium \
-                       --nodes=2 \
-                       --nodes-min=2 \
-                       --nodes-max=4 \
-                       --node-volume-size=20 \
-                       --ssh-access \
-                       --ssh-public-key=kube-demo \
-                       --managed \
-                       --asg-access \
-                       --external-dns-access \
-                       --full-ecr-access \
-                       --appmesh-access \
-                       --alb-ingress-access
-END
-chmod +x /home/ubuntu/ekstl_setup_kubernetes
 #Reboot
 reboot
