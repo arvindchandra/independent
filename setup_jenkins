@@ -52,5 +52,13 @@ PLATFORM=$(uname -s)_$ARCH
 curl -sLO "https://github.com/eksctl-io/eksctl/releases/latest/download/eksctl_$PLATFORM.tar.gz"
 tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 chmod +x /tmp/eksctl
+sudo mkdir -p /var/jenkins_home
+sudo chown -R 1000:1000 /var/jenkins_home/
+cat > /home/ubuntu/steps_install_jenkins << EOF
+docker run -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home --name jenkins -d jenkins/jenkins:lts
+Open browser and go to: http://IP:8080/
+You will be asked for initial password for the Jenkins, you can get this password by entering following command on your server.
+cat /var/jenkins_home/secrets/initialAdminPassword
+EOF
 #Reboot
 reboot
