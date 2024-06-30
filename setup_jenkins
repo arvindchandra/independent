@@ -59,6 +59,14 @@ docker run -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home --
 Open browser and go to: http://IP:8080/
 You will be asked for initial password for the Jenkins, you can get this password by entering following command on your server.
 cat /var/jenkins_home/secrets/initialAdminPassword
+
+To get jenkins with docker going
+git clone https://github.com/wardviaene/jenkins-docker.git
+docker build -t jenkins-docker .
+docker stop jenkins
+docker rm jenkins
+
+docker run -p 8080:8080 -p 50000:50000 -v /var/jenkins_home:/var/jenkins_home -v /var/run/docker.sock:/var/run/docker.sock --name jenkins -d jenkins-docker
 EOF
 #Reboot
 reboot
