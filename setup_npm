@@ -54,8 +54,8 @@ tar -xzf eksctl_$PLATFORM.tar.gz -C /tmp && rm eksctl_$PLATFORM.tar.gz
 chmod +x /tmp/eksctl
 sudo mkdir -p /var/jenkins_home
 sudo chown -R 1000:1000 /var/jenkins_home/
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 cat > /home/ubuntu/steps_npm << EOF
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install --lts
 npm install typescript
 EOF
