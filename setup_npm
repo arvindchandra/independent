@@ -57,7 +57,7 @@ sudo chown -R 1000:1000 /var/jenkins_home/
 cat > /home/ubuntu/steps_npm << EOF
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 nvm install --lts
-npm install typescript
+npm install -g typescript
 EOF
 #Reboot
 reboot
